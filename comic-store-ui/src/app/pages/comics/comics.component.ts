@@ -4,6 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -20,6 +21,7 @@ import { ComicFormDialogComponent } from './comic-form-dialog.component';
 })
 export class ComicsComponent implements OnInit {
   private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
   private comicService = inject(ComicService);
   auth = inject(AuthService);
 
@@ -67,6 +69,12 @@ export class ComicsComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.comicService.delete(id).subscribe(() => this.load());
+    this.comicService.delete(id).subscribe({
+      next: () => this.load(),
+      error: (err) => {
+        const msg = err.error ?? 'Failed to delete comic';
+        this.snackBar.open(msg, 'Dismiss', { duration: 4000 });
+      }
+    });
   }
 }
