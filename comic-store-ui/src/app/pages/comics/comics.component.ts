@@ -72,7 +72,10 @@ export class ComicsComponent implements OnInit {
     this.comicService.delete(id).subscribe({
       next: () => this.load(),
       error: (err) => {
-        const msg = err.error ?? 'Failed to delete comic';
+        console.error('Delete comic error:', err);
+        const msg = typeof err.error === 'string' && err.error
+          ? err.error
+          : err.error?.message ?? err.message ?? 'Failed to delete comic';
         this.snackBar.open(msg, 'Dismiss', { duration: 4000 });
       }
     });
