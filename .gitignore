@@ -15,4 +15,8 @@ comic-store-ui/dist/
 Thumbs.db
 
 # Scratch files from previous AWS setup
-*.json
+cf-current.json
+cf-distribution.json
+cf-updated.json
+tg-matcher.json
+tg-matcher2.json
