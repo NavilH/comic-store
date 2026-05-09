@@ -1,0 +1,68 @@
+<div class="page">
+
+  <div class="page-header">
+    <h2 class="page-title">Inventory</h2>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <table mat-table [dataSource]="inventory">
+
+        <ng-container matColumnDef="comic">
+          <th mat-header-cell *matHeaderCellDef>Comic</th>
+          <td mat-cell *matCellDef="let item" class="comic-cell">{{ item.comic.title }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="publisher">
+          <th mat-header-cell *matHeaderCellDef>Publisher</th>
+          <td mat-cell *matCellDef="let item">{{ item.comic.publisher.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>Stock</th>
+          <td mat-cell *matCellDef="let item">
+            <span [class]="isLowStock(item) ? 'quantity low' : 'quantity ok'">
+              {{ item.quantity }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let item">
+            @if (isLowStock(item)) {
+              <span class="status-badge low-stock">
+                <mat-icon>warning</mat-icon> Low Stock
+              </span>
+            } @else {
+              <span class="status-badge in-stock">
+                <mat-icon>check_circle</mat-icon> In Stock
+              </span>
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastRestocked">
+          <th mat-header-cell *matHeaderCellDef>Last Restocked</th>
+          <td mat-cell *matCellDef="let item">{{ item.lastRestocked | date:'mediumDate' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let item" class="actions-cell">
+            @if (auth.isAdmin()) {
+              <button mat-stroked-button color="primary" (click)="openRestock(item)">
+                <mat-icon>add_box</mat-icon> Restock
+              </button>
+            }
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.low-stock-row]="isLowStock(row)"></tr>
+
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+</div>

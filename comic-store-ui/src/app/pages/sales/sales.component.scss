@@ -1,0 +1,27 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  color: #1c1f2e;
+}
+
+table {
+  width: 100%;
+}
+
+.total-cell {
+  font-weight: 600;
+  color: #3f51b5;
+}
+
+.actions-cell {
+  text-align: right;
+  white-space: nowrap;
+}

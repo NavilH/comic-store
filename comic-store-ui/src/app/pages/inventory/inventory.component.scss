@@ -1,0 +1,64 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  color: #1c1f2e;
+}
+
+table {
+  width: 100%;
+}
+
+.comic-cell {
+  font-weight: 500;
+}
+
+.quantity {
+  font-weight: 700;
+  font-size: 16px;
+
+  &.low  { color: #f44336; }
+  &.ok   { color: #4caf50; }
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+
+  &.low-stock {
+    background: #fdecea;
+    color: #f44336;
+  }
+
+  &.in-stock {
+    background: #e8f5e9;
+    color: #4caf50;
+  }
+}
+
+.low-stock-row {
+  background: #fff8f8;
+}
+
+.actions-cell {
+  text-align: right;
+  white-space: nowrap;
+}

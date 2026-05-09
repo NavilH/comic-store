@@ -1,0 +1,35 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  color: #1c1f2e;
+}
+
+table {
+  width: 100%;
+}
+
+.title-cell {
+  font-weight: 500;
+}
+
+.genre-badge {
+  background: #e8eaf6;
+  color: #3f51b5;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.actions-cell {
+  text-align: right;
+  white-space: nowrap;
+}

@@ -1,0 +1,71 @@
+<div class="page">
+
+  <div class="page-header">
+    <h2 class="page-title">Comics</h2>
+    @if (auth.isAdmin()) {
+      <button mat-flat-button color="primary" (click)="openAdd()">
+        <mat-icon>add</mat-icon> Add Comic
+      </button>
+    }
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <table mat-table [dataSource]="comics">
+
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>Title</th>
+          <td mat-cell *matCellDef="let comic" class="title-cell">{{ comic.title }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="issueNumber">
+          <th mat-header-cell *matHeaderCellDef>Issue #</th>
+          <td mat-cell *matCellDef="let comic">#{{ comic.issueNumber }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="publisher">
+          <th mat-header-cell *matHeaderCellDef>Publisher</th>
+          <td mat-cell *matCellDef="let comic">{{ comic.publisher.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="genre">
+          <th mat-header-cell *matHeaderCellDef>Genre</th>
+          <td mat-cell *matCellDef="let comic">
+            <span class="genre-badge">{{ genreLabel[comic.genre] || comic.genre }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>Price</th>
+          <td mat-cell *matCellDef="let comic">{{ comic.price | currency }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let comic" class="actions-cell">
+            @if (auth.isAdmin()) {
+              <button mat-icon-button matTooltip="Edit" (click)="openEdit(comic)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Delete" color="warn" (click)="delete(comic.id!)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            }
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+
+      <mat-paginator
+        [length]="totalElements"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[10, 20, 50]"
+        (page)="onPageChange($event)">
+      </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+
+</div>

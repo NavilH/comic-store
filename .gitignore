@@ -1,0 +1,18 @@
+# Maven
+comic-store/comic-store/target/
+
+# Angular
+comic-store-ui/node_modules/
+comic-store-ui/dist/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Scratch files from previous AWS setup
+*.json

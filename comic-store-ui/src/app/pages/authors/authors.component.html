@@ -1,0 +1,42 @@
+<div class="page">
+
+  <div class="page-header">
+    <h2 class="page-title">Authors</h2>
+    @if (auth.isAdmin()) {
+      <button mat-flat-button color="primary" (click)="openAdd()">
+        <mat-icon>add</mat-icon> Add Author
+      </button>
+    }
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <table mat-table [dataSource]="authors">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let a" class="name-cell">{{ a.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let a" class="actions-cell">
+            @if (auth.isAdmin()) {
+              <button mat-icon-button matTooltip="Edit" (click)="openEdit(a)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Delete" color="warn" (click)="delete(a.id!)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            }
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+</div>

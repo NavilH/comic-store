@@ -1,0 +1,18 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  color: #1c1f2e;
+}
+
+table { width: 100%; }
+
+.name-cell    { font-weight: 500; }
+.actions-cell { text-align: right; white-space: nowrap; }

@@ -1,0 +1,76 @@
+.app-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 240px;
+  background: #1c1f2e;
+  color: white;
+
+  .sidenav-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 16px;
+    font-size: 20px;
+    font-weight: 500;
+    border-bottom: 1px solid rgb(255, 255, 255);
+
+    mat-icon {
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  mat-nav-list {
+    padding-top: 8px;
+    --mdc-list-list-item-label-text-color: white;
+    --mdc-list-list-item-hover-label-text-color: #1c1f2e;
+
+    a {
+      border-left: 6px solid transparent;
+      margin: 2px 0;
+
+      mat-icon {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      &:hover {
+        background: rgb(255, 255, 255);
+
+        mat-icon {
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.active-link {
+  background: rgba(28, 44, 131, 0.884) !important;
+  border-left-color: #797ecb !important;
+  color: rgb(128, 23, 23);
+
+  mat-icon {
+    color: #7986cb !important;
+  }
+}
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .spacer { flex: 1; }
+
+  .username {
+    font-size: 0.9rem;
+    margin-right: 8px;
+    opacity: 0.85;
+  }
+}
+
+.content-area {
+  padding: 24px;
+}
