@@ -31,10 +31,11 @@ public class UserService implements UserDetailsService {
         if (userRepository.existsByUsername(request.username())) {
             throw new IllegalArgumentException("Username already taken");
         }
+        String role = userRepository.count() == 0 ? "ADMIN" : "USER";
         User user = User.builder()
                 .username(request.username())
                 .password(passwordEncoder.encode(request.password()))
-                .role("ADMIN")
+                .role(role)
                 .build();
         userRepository.save(user);
         return new AuthResponse(jwtService.generateToken(user), user.getUsername(), user.getRole());
