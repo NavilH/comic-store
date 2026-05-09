@@ -9,4 +9,6 @@ import java.util.List;
 public interface ComicRepository extends JpaRepository<Comic, Long> {
     List<Comic> findByPublisherId(Long publisherId);
     List<Comic> findByGenre(Genre genre);
+    boolean existsByPublisherId(Long publisherId);
+    boolean existsByAuthorsId(Long authorId);
 }

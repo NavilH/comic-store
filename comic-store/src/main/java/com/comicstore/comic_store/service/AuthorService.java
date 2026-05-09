@@ -5,6 +5,7 @@ import com.comicstore.comic_store.dto.AuthorResponse;
 import com.comicstore.comic_store.entity.Author;
 import com.comicstore.comic_store.exception.ResourceNotFoundException;
 import com.comicstore.comic_store.repository.AuthorRepository;
+import com.comicstore.comic_store.repository.ComicRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class AuthorService {
 
     private final AuthorRepository repository;
+    private final ComicRepository comicRepository;
 
     public List<AuthorResponse> findAll() {
         return repository.findAll().stream().map(this::toResponse).toList();
@@ -39,6 +41,8 @@ public class AuthorService {
     public void delete(Long id) {
         if (!repository.existsById(id))
             throw new ResourceNotFoundException("Author not found: " + id);
+        if (comicRepository.existsByAuthorsId(id))
+            throw new IllegalStateException("Cannot delete author with existing comics");
         repository.deleteById(id);
     }
 

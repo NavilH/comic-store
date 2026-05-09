@@ -4,6 +4,7 @@ import com.comicstore.comic_store.dto.PublisherRequest;
 import com.comicstore.comic_store.dto.PublisherResponse;
 import com.comicstore.comic_store.entity.Publisher;
 import com.comicstore.comic_store.exception.ResourceNotFoundException;
+import com.comicstore.comic_store.repository.ComicRepository;
 import com.comicstore.comic_store.repository.PublisherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.List;
 public class PublisherService {
 
     private final PublisherRepository repository;
+    private final ComicRepository comicRepository;
 
     public List<PublisherResponse> findAll() {
         return repository.findAll().stream().map(this::toResponse).toList();
@@ -44,6 +46,8 @@ public class PublisherService {
     public void delete(Long id) {
         if (!repository.existsById(id))
             throw new ResourceNotFoundException("Publisher not found: " + id);
+        if (comicRepository.existsByPublisherId(id))
+            throw new IllegalStateException("Cannot delete publisher with existing comics");
         repository.deleteById(id);
     }
 

@@ -11,10 +11,13 @@ import com.comicstore.comic_store.exception.ResourceNotFoundException;
 import com.comicstore.comic_store.mapper.ComicMapper;
 import com.comicstore.comic_store.repository.AuthorRepository;
 import com.comicstore.comic_store.repository.ComicRepository;
+import com.comicstore.comic_store.repository.InventoryRepository;
 import com.comicstore.comic_store.repository.PublisherRepository;
+import com.comicstore.comic_store.repository.SaleItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,6 +28,8 @@ public class ComicService {
     private final ComicRepository comicRepository;
     private final PublisherRepository publisherRepository;
     private final AuthorRepository authorRepository;
+    private final InventoryRepository inventoryRepository;
+    private final SaleItemRepository saleItemRepository;
     private final ComicMapper comicMapper;
 
     public PageResponse<ComicResponse> findAll(Pageable pageable) {
@@ -74,9 +79,15 @@ public class ComicService {
         return comicMapper.toResponse(comicRepository.save(comic));
     }
 
+    @Transactional
     public void delete(Long id) {
-        if (!comicRepository.existsById(id))
-            throw new ResourceNotFoundException("Comic not found: " + id);
+        Comic comic = comicRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Comic not found: " + id));
+        if (saleItemRepository.existsByComicId(id))
+            throw new IllegalStateException("Cannot delete comic that has been sold");
+        inventoryRepository.deleteByComicId(id);
+        comic.setAuthors(java.util.List.of());
+        comicRepository.save(comic);
         comicRepository.deleteById(id);
     }
 
