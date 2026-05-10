@@ -12,6 +12,7 @@ import com.comicstore.comic_store.mapper.ComicMapper;
 import com.comicstore.comic_store.repository.AuthorRepository;
 import com.comicstore.comic_store.repository.ComicRepository;
 import com.comicstore.comic_store.repository.PublisherRepository;
+import com.comicstore.comic_store.repository.SaleItemRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,6 +39,7 @@ class ComicServiceTest {
     @Mock ComicRepository comicRepository;
     @Mock PublisherRepository publisherRepository;
     @Mock AuthorRepository authorRepository;
+    @Mock SaleItemRepository saleItemRepository;
     @Spy  ComicMapper comicMapper = new ComicMapper();
 
     @InjectMocks ComicService service;
@@ -154,6 +156,7 @@ class ComicServiceTest {
     @Test
     void delete_deletesComic() {
         when(comicRepository.existsById(1L)).thenReturn(true);
+        when(saleItemRepository.existsByComicId(1L)).thenReturn(false);
 
         service.delete(1L);
 
