@@ -86,7 +86,7 @@ public class ComicService {
         if (saleItemRepository.existsByComicId(id))
             throw new IllegalStateException("Cannot delete comic that has been sold");
         inventoryRepository.deleteByComicId(id);
-        comic.setAuthors(java.util.List.of());
+        comic.setAuthors(new java.util.ArrayList<>());
         comicRepository.save(comic);
         comicRepository.deleteById(id);
     }
