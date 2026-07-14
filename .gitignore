@@ -15,8 +15,14 @@ comic-store-ui/dist/
 Thumbs.db
 
 # Scratch files from previous AWS setup
-cf-current.json
-cf-distribution.json
-cf-updated.json
-tg-matcher.json
-tg-matcher2.json
+cf-*.json
+tg-matcher*.json
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/*.tfvars
+terraform/crash.log
+terraform/override.tf
+terraform/override.tf.json
