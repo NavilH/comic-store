@@ -14,7 +14,7 @@ env:
   TASK_DEFINITION: comic-store-api
   CONTAINER_NAME: comic-store-api
   S3_BUCKET: comic-store-ui-prod
-  CLOUDFRONT_DISTRIBUTION_ID: E1QWB83G6APLT2
+  CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
 
 jobs:
   backend:
