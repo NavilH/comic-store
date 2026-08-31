@@ -5,6 +5,11 @@ comic-store/comic-store/target/
 comic-store-ui/node_modules/
 comic-store-ui/dist/
 
+# Playwright
+comic-store-ui/playwright-report/
+comic-store-ui/test-results/
+comic-store-ui/blob-report/
+
 # IDE
 .idea/
 *.iml
